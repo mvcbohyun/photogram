@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,6 +21,7 @@ public class UserController {
 	public String update(@PathVariable Long id, @AuthenticationPrincipal PrincipalDtails principalDtails) {
 		// 이걸로 찾으면 세션을 쉽게 찾을수 있음
 		System.out.println("세션정보 : "+ principalDtails.getUser());
+		
 		
 		//이렇게도 찾을수 있음 사용하지 말것 !
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();	
