@@ -1,3 +1,4 @@
+
 package com.cos.photogramstart.domain.subscribe;
 
 import java.time.LocalDateTime;
@@ -31,13 +32,14 @@ import lombok.NoArgsConstructor;
 				)
 		}
 )
-public class Subscibe {
+public class Subscribe {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)//번호 증가 전략이 데이터 베이스를 따라간다.
 	private Long id;
 	
 	@JoinColumn(name ="fromUserId")
 	@ManyToOne
 	private User fromUser;
+	
 	
 	@JoinColumn(name ="toUserId")
 	@ManyToOne
