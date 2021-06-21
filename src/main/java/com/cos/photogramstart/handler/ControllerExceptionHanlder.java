@@ -21,8 +21,13 @@ public class ControllerExceptionHanlder {
 		//1. 클라이언트에게 응답할 때는 Script가 좋음
 		//2. Ajax통신 - CMRespDto
 		//3. Android 통신 - CMRespDto
+		if(e.getErrorMap()==null) {
+			return Script.back(e.getMessage());
+		}else {
+			return Script.back(e.getErrorMap().toString());
+		}
 		
-		return Script.back(e.getErrorMap().toString());
+		
 	}
 	
 	@ExceptionHandler(CustomValidationApiException.class)//  CMRespDto<?> -- 여기서 ?를 넣으면 추론해서 진행해줌
