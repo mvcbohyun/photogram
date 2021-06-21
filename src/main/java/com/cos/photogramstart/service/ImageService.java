@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.cos.photogramstart.config.auth.PrincipalDtails;
+import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.image.ImageRepository;
 import com.cos.photogramstart.web.dto.image.ImageUploadDto;
 
@@ -36,6 +37,11 @@ public class ImageService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//image테이블 저장
+		Image image =imageUploadDto.toEntity(imageFileName,principalDtails.getUser());
+		Image imageEntity = imageRepository.save(image);
+		System.out.println(imageEntity);
 	}
 	
 }
