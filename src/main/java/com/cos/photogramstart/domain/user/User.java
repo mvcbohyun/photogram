@@ -58,6 +58,7 @@ public class User {
 	@JsonIgnoreProperties({"user"})
 	private List<Image> images;// 양방향 매핑!
 	
+	
 	private LocalDateTime createDate;
 
 	

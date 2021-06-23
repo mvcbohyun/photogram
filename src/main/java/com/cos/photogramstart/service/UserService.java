@@ -10,6 +10,7 @@ import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
 import com.cos.photogramstart.handler.ex.CustomException;
 import com.cos.photogramstart.handler.ex.CustomValidationApiException;
+import com.cos.photogramstart.web.dto.user.UserProfileDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,15 +22,19 @@ public class UserService {
 	private final UserRepository userRepository; 
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	public User 회원프로필(Long userId) {
+	public UserProfileDto 회원프로필(Long pageUserId,Long principalId) {
+		
+		UserProfileDto dto = new UserProfileDto();
 		//select * from image where userid =:userid;
-		User userEntity = userRepository.findById(userId);
+		User userEntity = userRepository.findById(pageUserId);
 		
 		if(userEntity ==null){
 			throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
 		}
-		
-		return userEntity;
+		dto.setUser(userEntity);
+		dto.setImageCount(userEntity.getImages().size());
+		dto.setPageOwnerState(pageUserId==principalId );// 1은 페이지 주인 -1은 페이지 주인 아님
+		return dto;
 	}
 	@Transactional
 	public User 회원수정(Long id , User user) {
