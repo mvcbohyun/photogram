@@ -34,7 +34,11 @@ public class Image {
 	@ManyToOne
 	private User user;
 	
+	
+	
 	//  이미지 좋아요
+	
+	
 	
 	//  댓글
 	
@@ -43,6 +47,12 @@ public class Image {
 	@PrePersist// 디비에 insert 되기 직전에 실행
 	public void createDate() {
 		this.createDate= LocalDateTime.now();
+	}
+//오브젝트를 콘솔에 출력할 떄 문제가 될 수 있어서  User 부분을 삭제
+	@Override
+	public String toString() {
+		return "Image [id=" + id + ", caption=" + caption + ", postImageUrl=" + postImageUrl + ", createDate="
+				+ createDate + "]";
 	}
 	
 	

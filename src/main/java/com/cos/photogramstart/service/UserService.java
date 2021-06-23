@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
 	
 	private final UserRepository userRepository; 
@@ -27,8 +28,7 @@ public class UserService {
 		if(userEntity ==null){
 			throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
 		}
-		System.out.println("================================");
-		userEntity.getImages().get(0);
+		
 		return userEntity;
 	}
 	@Transactional

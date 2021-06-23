@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.photogramstart.config.auth.PrincipalDtails;
 import com.cos.photogramstart.domain.image.Image;
@@ -17,13 +18,14 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ImageService {
 
 	private final ImageRepository imageRepository;
 	
 	@Value("${file.path}")// yml 에 있는거 가져 오기 
 	private String uploadFolder;
-	
+	@Transactional
 	public void 사진업로드(ImageUploadDto imageUploadDto ,PrincipalDtails principalDtails) {
 		UUID uuid = UUID.randomUUID();
 		String imageFileName = uuid + "_"+imageUploadDto.getFile().getOriginalFilename();//1.jpg
