@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.photogramstart.domain.subscribe.SubscribeRepository;
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
 import com.cos.photogramstart.handler.ex.CustomException;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 	
 	private final UserRepository userRepository; 
+	private final SubscribeRepository subscribeRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public UserProfileDto 회원프로필(Long pageUserId,Long principalId) {
@@ -31,9 +33,21 @@ public class UserService {
 		if(userEntity ==null){
 			throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
 		}
+		System.out.println("pageUserId :"+pageUserId);
+		System.out.println("principalId :"+principalId);
 		dto.setUser(userEntity);
 		dto.setImageCount(userEntity.getImages().size());
 		dto.setPageOwnerState(pageUserId==principalId );// 1은 페이지 주인 -1은 페이지 주인 아님
+		System.out.println("========================");
+		int subscribeState =subscribeRepository.mSubsribeState(principalId, pageUserId);
+		System.out.println("========================"+subscribeState);
+		int subscribeCount =subscribeRepository.mSubscribeCount(pageUserId);
+		System.out.println("========================"+subscribeCount);
+		int subscribeMeCount =subscribeRepository.mSubscribeMeCount(pageUserId);
+		System.out.println("========================"+subscribeMeCount);
+		dto.setSubscribeState(subscribeState==1);
+		dto.setSubscribeCount(subscribeCount);
+		dto.setSubscribeMeCount(subscribeMeCount);
 		return dto;
 	}
 	@Transactional
