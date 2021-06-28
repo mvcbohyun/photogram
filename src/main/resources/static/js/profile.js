@@ -40,13 +40,59 @@ function toggleSubscribe(toUserid,obj) {
 	}
 }
 
+// (2) 구독한 정보  모달 보기
+function subscribeInfoModalOpen(pageUserId) {
+	$(".modal-subscribe").css("display", "flex");
+	console.log(pageUserId);
+	$.ajax({
+			url:`/api/user/${pageUserId}/subscribe`,
+			dataType:"json"
+		}).done(res=>{
+		console.log(res.data);
+		
+		res.data.forEach((u)=>{
+		console.log(u);
+		let item =  getSubscribeModalItem(u);
+		console.log(item);
+
+		$("#subscribeModalList").append(item);
+		});
+		}).fail(error =>{
+			console.log("구독한 정보 가져오기 실패",error);
+		});
+}
+
 // (2) 구독자 정보  모달 보기
-function subscribeInfoModalOpen() {
+function subscribeInfoModalOpen2(pageUserId) {
 	$(".modal-subscribe").css("display", "flex");
 }
 
-function getSubscribeModalItem() {
-
+function getSubscribeModalItem(u) {
+	
+	let item =`<div class="subscribe__item" id="subscribeModalItem-${u.id}">
+	<div class="subscribe__img">
+		<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'" />
+	</div>
+	<div class="subscribe__text">
+		<h2>${u.username}</h2>
+	</div>
+	<div class="subscribe__btn">`;
+	
+		if(!u.equalUserState){// 동일유저가 아닐 때 버튼이 만들어져야함
+			if(u.subscribeState){ // 구독한 상태
+			item +=`<button class="cta blue" onclick="toggleSubscribeModal(this)">구독취소</button>`;
+			}else{//구독 안한 상태
+			item +=`<button class="cta" onclick="toggleSubscribeModal(this)">구독하기</button>`;
+			}
+		}
+		
+	
+	item+=`
+	
+	</div>
+</div>`;
+	
+	return item;
 }
 
 
