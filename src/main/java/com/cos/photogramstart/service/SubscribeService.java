@@ -78,8 +78,8 @@ public class SubscribeService {
 				.setParameter(3, pageUserId);
 		
 		//1.물음표 principalId
-		//1.물음표 principalId
-		//2.물음표 pageUserId
+		//2.물음표 principalId
+		//3.물음표 pageUserId
 		//쿼리 실행(qlrm 라이브러리 필요 -- dto 에 매핑 하기 위해서 !)
 		JpaResultMapper result = new JpaResultMapper();
 		List<SubscribeDto> subscribeDtos= result.list(query, SubscribeDto.class);
