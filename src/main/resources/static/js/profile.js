@@ -64,7 +64,24 @@ function subscribeInfoModalOpen(pageUserId) {
 
 // (2) 구독자 정보  모달 보기
 function subscribeInfoModalOpen2(pageUserId) {
+	
 	$(".modal-subscribe").css("display", "flex");
+	$.ajax({
+			url:`/api/user/${pageUserId}/subscribe2`,
+			dataType:"json"
+		}).done(res=>{
+		console.log(res.data);
+		
+		res.data.forEach((u)=>{
+		console.log(u);
+		let item =  getSubscribeModalItem(u);
+		console.log(item);
+
+		$("#subscribeModalList").append(item);
+		});
+		}).fail(error =>{
+			console.log("구독한 정보 가져오기 실패",error);
+		});
 }
 //3
 function getSubscribeModalItem(u) {
@@ -145,6 +162,13 @@ function modalClose() {
 	$(".modal-subscribe").css("display", "none");
 	location.reload();
 }
+
+// (8) 구독자 정보 모달 닫기
+function modalClose2() {
+	$(".modal-subscribe2").css("display", "none");
+	location.reload();
+}
+
 
 
 

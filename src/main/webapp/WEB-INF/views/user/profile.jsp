@@ -126,7 +126,7 @@
 <div class="modal-subscribe">
 	<div class="subscribe">
 		<div class="subscribe-header">
-			<span>구독정보</span>
+			<span>정보</span>
 			<button onclick="modalClose()">
 				<i class="fas fa-times"></i>
 			</button>
@@ -137,6 +137,8 @@
 	</div>
 
 </div>
+
+
 
 
 <script src="/js/profile.js"></script>
