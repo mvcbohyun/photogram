@@ -29,7 +29,7 @@ public class SubscibeApiController {
 	@DeleteMapping("/api/subscribe/{toUserId}")
 	public ResponseEntity<?> unsubscribe(@AuthenticationPrincipal PrincipalDtails principalDtails ,@PathVariable Long toUserId){
 		subscibeService.구독취소하기(principalDtails.getUser().getId(), toUserId);
-		return new ResponseEntity<>(new CMRespDto<>(1,"구독하기 성공",null),HttpStatus.OK);
+		return new ResponseEntity<>(new CMRespDto<>(1,"구독취소 성공",null),HttpStatus.OK);
 	}
 	
 }
