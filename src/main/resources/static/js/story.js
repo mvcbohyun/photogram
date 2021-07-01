@@ -42,12 +42,18 @@ function getStoryItem(image) {
 		<div class="sl__item__contents">
 			<div class="sl__item__contents__icon">
 
-				<button>
-					<i class="fas fa-heart active" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>
-				</button>
+				<button>`;
+				if(image.likeState){
+					item+=`<i class="fas fa-heart active" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`
+				}else{
+					item+=`<i class="far fa-heart" id="storyLikeIcon-${image.id}" onclick="toggleLike(${image.id})"></i>`
+				}
+				
+					
+				item+=`</button>
 			</div>
 
-			<span class="like"><b id="storyLikeCount-1">3 </b>likes</span>
+			<span class="like"><b id="storyLikeCount-${image.id}">${image.likeCount} </b>likes</span>
 
 			<div class="sl__item__contents__content">
 				<p>${image.caption}</p>
@@ -135,6 +141,7 @@ function addComment() {
 	commentList.prepend(content);
 	commentInput.val("");
 }
+
 
 
 // (5) 댓글 삭제

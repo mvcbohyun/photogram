@@ -38,6 +38,8 @@ public class Likes {//N
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)//번호 증가 전략이 데이터 베이스를 따라간다.
 	private Long id;
 	
+	
+	
 	@JoinColumn(name = "imageId")
 	@ManyToOne
 	private Image image;//1
@@ -54,4 +56,5 @@ public class Likes {//N
 		this.createDate= LocalDateTime.now();
 	}
 
+	
 }
