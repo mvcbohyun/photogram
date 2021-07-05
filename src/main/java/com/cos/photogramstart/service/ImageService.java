@@ -69,5 +69,10 @@ public class ImageService {
 		Image imageEntity = imageRepository.save(image);
 		System.out.println(imageEntity);
 	}
+
+	public List<Image> 인기사진() {
+		
+		return imageRepository.mPopular();
+	}
 	
 }
