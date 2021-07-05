@@ -46,11 +46,13 @@ public class ImageService {
 			});
 		});
 		
+		
 		return images;
 	}
 	
 	@Transactional
 	public void 사진업로드(ImageUploadDto imageUploadDto ,PrincipalDtails principalDtails) {
+	
 		UUID uuid = UUID.randomUUID();
 		String imageFileName = uuid + "_"+imageUploadDto.getFile().getOriginalFilename();//1.jpg
 		System.out.println("이미지 파일 이름 :"+imageFileName);
