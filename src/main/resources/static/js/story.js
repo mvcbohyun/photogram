@@ -59,18 +59,26 @@ function getStoryItem(image) {
 				<p>${image.caption}</p>
 			</div>
 
-			<div id="storyCommentList-${image.id}">
+			<div id="storyCommentList-${image.id}">`;
+			
+			
+			image.comments.forEach((comment)=>{
+				item+=`
 
-				<div class="sl__item__contents__comment" id="storyCommentItem-1">
+				<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
 					<p>
-						<b>Lovely :</b> 부럽습니다.
+						<b>${comment.user.username} :</b> ${comment.content}
 					</p>
 
 					<button>
 						<i class="fas fa-times"></i>
 					</button>
 
-				</div>
+				</div>`
+			});
+			
+				
+				item+=`
 
 			</div>
 
@@ -169,21 +177,24 @@ function addComment(imageId) {
 		dataType:"json"
 	}).done(res=>{
 		console.log("성공",res);
+		
+		let comment = res.data;
+		let content = `
+			  <div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}"> 
+			    <p>
+			      <b>${comment.user.username} :</b>
+			     ${comment.content}
+			    </p>
+			    <button><i class="fas fa-times"></i></button>
+			  </div>
+		`;
+		commentList.prepend(content);//prepend 는 앞에다 넣는거 append 뒤에다 넣는거
 	}).fail(error=>{
 		console.log("오류",error);		
 	})
 
-	let content = `
-			  <div class="sl__item__contents__comment" id="storyCommentItem-2""> 
-			    <p>
-			      <b>GilDong :</b>
-			      댓글 샘플입니다.
-			    </p>
-			    <button><i class="fas fa-times"></i></button>
-			  </div>
-	`;
-	commentList.prepend(content);//prepend 는 앞에다 넣는거 append 뒤에다 넣는거
-	commentInput.val("");
+	
+	commentInput.val("");// 인풋 필드를 비워 준다.
 }
 
 
