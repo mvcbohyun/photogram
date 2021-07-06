@@ -5,6 +5,7 @@
 <sec:authorize access="isAuthenticated()">
  <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +33,8 @@
 </head>
 
 <body>
+<!-- principlId 담아두는곳 -->
+<input type="hidden"id="principalId"value="${principal.user.id }">
 	
 	<header class="header">
 		<div class="container">

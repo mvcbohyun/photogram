@@ -6,8 +6,13 @@
 	(4) 댓글쓰기
 	(5) 댓글삭제
  */
-let page=0;
+
+
+// (0) 현재 로그인한 아이디
+let principalId = $("#principalId").val();
+
 // (1) 스토리 로드하기
+let page=0;
 function storyLoad() {
 
 $.ajax({
@@ -68,13 +73,16 @@ function getStoryItem(image) {
 				<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}">
 					<p>
 						<b>${comment.user.username} :</b> ${comment.content}
-					</p>
+					</p>`;
+					
+					
+					if(principalId == comment.user.id){
+					item+=`<button onclick="deleteComment(${comment.id})">
+							<i class="fas fa-times"></i>
+						  </button>`;						
+					}
 
-					<button>
-						<i class="fas fa-times"></i>
-					</button>
-
-				</div>`
+				item+=`</div>`;
 			});
 			
 				
@@ -180,14 +188,13 @@ function addComment(imageId) {
 		
 		let comment = res.data;
 		let content = `
-			  <div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}"> 
+			<div class="sl__item__contents__comment" id="storyCommentItem-${comment.id}"> 
 			    <p>
 			      <b>${comment.user.username} :</b>
 			     ${comment.content}
 			    </p>
-			    <button><i class="fas fa-times"></i></button>
-			  </div>
-		`;
+			    <button onclick="deleteComment(${comment.id})"><i class="fas fa-times"></i></button>
+			</div>`;
 		commentList.prepend(content);//prepend 는 앞에다 넣는거 append 뒤에다 넣는거
 	}).fail(error=>{
 		console.log("오류",error);		
@@ -200,8 +207,20 @@ function addComment(imageId) {
 
 
 // (5) 댓글 삭제
-function deleteComment() {
+function deleteComment(commentId) {
 
+	$.ajax({
+			type:"delete",
+			url:`/api/comment/${commentId}`,
+			datatype:"json"
+		}).done(res=>{
+			console.log("삭제성공",res);
+			$(`#storyCommentItem-${commentId}`).remove();
+			
+		}).fail(error=>{
+			console.log("오류",error);
+		})
+		
 }
 
 
