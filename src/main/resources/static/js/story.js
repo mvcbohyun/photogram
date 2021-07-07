@@ -196,8 +196,10 @@ function addComment(imageId) {
 			    <button onclick="deleteComment(${comment.id})"><i class="fas fa-times"></i></button>
 			</div>`;
 		commentList.prepend(content);//prepend 는 앞에다 넣는거 append 뒤에다 넣는거
+		
 	}).fail(error=>{
-		console.log("오류",error);		
+		console.log("오류",error.responseJSON.data.content);		
+		alert(error.responseJSON.data.content);
 	})
 
 	
