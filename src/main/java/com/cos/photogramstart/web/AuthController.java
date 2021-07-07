@@ -43,15 +43,6 @@ public class AuthController {
 		
 	
 		
-		if(result.hasErrors()) {
-			
-			Map<String, String> errorMap = new HashMap<>();
-			for(FieldError error : result.getFieldErrors()) {
-				errorMap.put(error.getField(), error.getDefaultMessage());
-			}
-			
-			throw new CustomValidationException("유효성 검사 실패", errorMap);
-		}else {
 			log.info(signupDto.toString());
 			User user = signupDto.toEntity();
 			log.info(user.toString());
@@ -61,7 +52,7 @@ public class AuthController {
 			System.out.println(userEntity);
 			return "auth/signin";
 		
-		}
+		
 	
 		
 	}
