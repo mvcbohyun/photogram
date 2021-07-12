@@ -24,7 +24,7 @@ spring:
     open-in-view: true
     hibernate:
     
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -35,9 +35,18 @@ spring:
       max-file-size: 2MB
 
   security:
-    user:
+    user: 
       name: test
       password: 1234   
-
+      
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 353005189550391
+            client-secret: 77030abb2c7ae6b156d14aa009839797
+            scope: 
+            - public_profile
+            - email
 file:
   path: C:/file/springboot/upload/
