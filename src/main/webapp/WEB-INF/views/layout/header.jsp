@@ -16,7 +16,6 @@
 
 	<!-- 제이쿼리 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
 	<!-- Style -->
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/story.css">
@@ -48,6 +47,12 @@
 						</a></li>
 					<li class="navi-item"><a href="/image/popular">
 							<i class="far fa-compass"></i>
+						</a></li>
+					<li class="navi-item"><a href="/image/find">
+							<i class="far fa-eye"></i>
+					</a></li>
+					<li class="navi-item"><a href="/user/finduser">
+							<i class="fa fa-street-view"></i>
 						</a></li>
 					<li class="navi-item"><a href="/user/${principal.user.id }">
 							<i class="far fa-user"></i>

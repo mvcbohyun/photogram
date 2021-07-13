@@ -39,6 +39,17 @@ public class ImageController {
 		return "image/popular";
 	}
 	
+	@GetMapping("/image/find")
+	public String find(Model model ) {
+		
+		//api는 데이터를 리턴하는 서버 !
+		List<Image> images = imageService.최신사진();
+		
+		model.addAttribute("images",images);
+		
+		return "image/find";
+	}
+	
 	@GetMapping("/image/upload")
 	public String upload() {
 		return "image/upload";

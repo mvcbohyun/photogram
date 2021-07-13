@@ -76,5 +76,10 @@ public class ImageService {
 		
 		return imageRepository.mPopular();
 	}
+
+	public List<Image> 최신사진() {
+		// TODO Auto-generated method stub
+		return imageRepository.mFind();
+	}
 	
 }
