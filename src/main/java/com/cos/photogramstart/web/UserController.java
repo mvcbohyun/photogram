@@ -38,5 +38,11 @@ public class UserController {
 		//System.out.println("직접 찾은 세션정보 : "+mPrincipalDtails.getUser());
 		return "user/update";
 	}
+	
+	@GetMapping("/user/finduser")
+	public String profile() {
+		
+		return "user/finduser";
+	}
 }
 

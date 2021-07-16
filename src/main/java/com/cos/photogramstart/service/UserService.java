@@ -3,9 +3,14 @@ package com.cos.photogramstart.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +23,8 @@ import com.cos.photogramstart.domain.user.UserRepository;
 import com.cos.photogramstart.handler.ex.CustomApiException;
 import com.cos.photogramstart.handler.ex.CustomException;
 import com.cos.photogramstart.handler.ex.CustomValidationApiException;
+import com.cos.photogramstart.web.dto.subscribe.SubscribeDto;
+import com.cos.photogramstart.web.dto.user.UserFindDto;
 import com.cos.photogramstart.web.dto.user.UserProfileDto;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +37,7 @@ public class UserService {
 	private final UserRepository userRepository; 
 	private final SubscribeRepository subscribeRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final EntityManager em;
 	
 	@Value("${file.path}")// yml 에 있는거 가져 오기 
 	private String uploadFolder;
@@ -113,5 +121,32 @@ public class UserService {
 		return userEntity;
 		
 	
+	}
+	public List<UserFindDto> 유저조회(Long id, String searchuser, int number, int size) {
+		//쿼리 작성
+				StringBuffer sb = new StringBuffer();
+				sb.append("SELECT  a.id , a.username, a.profileImageUrl,ifnull(a.bio,CONCAT('안녕하세요 ', a.username , ' 입니다.')),if(ifnull(b.toUserId,'')='' ,0,1) AS gudok ");
+				sb.append("FROM user a ");
+				sb.append("LEFT JOIN subscribe b ");
+				sb.append("ON a.id = b.toUserId AND b.fromUserId =? ");
+				sb.append("WHERE CONCAT(a.name,a.username ) LIKE CONCAT('%',?,'%') ");
+				sb.append("AND a.id !=? ");
+				sb.append("LIMIT ?,? ");
+				//쿼리 완성
+				Query query = em.createNativeQuery(sb.toString())
+						.setParameter(1, id)
+						.setParameter(2, searchuser)
+						.setParameter(3, id)
+						.setParameter(4, number)
+						.setParameter(5, size);
+						
+				
+				//1.물음표 principalId
+				//2.물음표 principalId
+				//3.물음표 pageUserId
+				//쿼리 실행(qlrm 라이브러리 필요 -- dto 에 매핑 하기 위해서 !)
+				JpaResultMapper result = new JpaResultMapper();
+				List<UserFindDto> userFindDtos= result.list(query, UserFindDto.class);
+		return userFindDtos;
 	}
 }

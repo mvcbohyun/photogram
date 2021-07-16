@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="/css/profile.css">
 	<link rel="stylesheet" href="/css/upload.css">
 	<link rel="stylesheet" href="/css/update.css">
+	<link rel="stylesheet" href="/css/public.css">
 	<link rel="shortcut icon" href="/images/insta.svg">
 	
 	<!-- Fontawesome -->

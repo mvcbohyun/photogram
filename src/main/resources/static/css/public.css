@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+
+.containerfind{
+	    display: list-item;
+        flex-direction: column;
+        align-items: left;
+        margin-left:20%;
+      
+}
+.findinput {
+   width: 15%;
+   height: 30px;
+   
+   text-align: center;
+} 
+
+.findbutton {
+  margin-left:5px;
+  border: 0;
+  height: 30px;
+  width: 50px;
+  background-color: transparent;
+  border: solid 3px black;
+  border-radius: 5px;
+  
+} 
+
+#userfind{
+	margin-left:25%;
+}
+#userfind .finduser {
+  text-align:left;
+  border: 0;
+  height: 500px;
+  width: 50%;
+  background-color: transparent;
+  border: solid 3px black;
+  border-radius: 5px;
+  
+  
+} 
+.findimage{
+	text-align:center;
+	width: 80%;
+	height: 230px;
+}

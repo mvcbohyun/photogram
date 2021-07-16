@@ -6,14 +6,18 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +28,7 @@ import com.cos.photogramstart.service.SubscribeService;
 import com.cos.photogramstart.service.UserService;
 import com.cos.photogramstart.web.dto.CMRespDto;
 import com.cos.photogramstart.web.dto.subscribe.SubscribeDto;
+import com.cos.photogramstart.web.dto.user.UserFindDto;
 import com.cos.photogramstart.web.dto.user.UserUpdateDto;
 
 
@@ -71,5 +76,13 @@ public class UserApiController {
 	public ResponseEntity<?> subscribe2List(@PathVariable Long pageUserId , @AuthenticationPrincipal PrincipalDtails principalDtails){
 		List<SubscribeDto> subscribeDto = subscribeService.구독자리스트(principalDtails.getUser().getId() , pageUserId);
 		return new ResponseEntity<>(new CMRespDto<>(1,"구독자 정보 불러오기 성공",subscribeDto),HttpStatus.OK);
+	}
+	@GetMapping("/api/user/search")
+	public ResponseEntity<?> subscribe2List(@PageableDefault(size = 10, sort = "id" ) Pageable pageable,
+												@AuthenticationPrincipal PrincipalDtails principalDtails,
+												@RequestParam String searchuser){
+		List<UserFindDto> userFindDtos= userService.유저조회(principalDtails.getUser().getId(),searchuser,pageable.getPageNumber(),pageable.getPageSize());
+		
+		return new ResponseEntity<>(new CMRespDto<>(1,"구독자 정보 불러오기 성공",userFindDtos),HttpStatus.OK);
 	}
 }
