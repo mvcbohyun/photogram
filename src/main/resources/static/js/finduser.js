@@ -17,6 +17,7 @@ function finduserload() {
 	
 	let usernamefind = $("#usernamefind").val();
 	
+	let order = $("input[name=order]:checked").val();
 	
 
 
@@ -24,7 +25,8 @@ function finduserload() {
 $.ajax({
 	url:`/api/user/search?page=0`,
 	dataType : 'json', 
-	data : { searchuser :usernamefind  }
+	data : { searchuser :usernamefind ,
+			 order: order }
 }).done(res=>{
 	console.log(res);
 	$(".finduser").remove();
@@ -46,6 +48,7 @@ let page=0;
 function finduser() {
 	
 	let usernamefind = $("#usernamefind").val();
+	let order = $("input[name=order]:checked").val();
 	
 	
 console.log(" finduser page :" +page)
@@ -54,7 +57,8 @@ console.log(" finduser page :" +page)
 $.ajax({
 	url:`/api/user/search?page=${page}`,
 	dataType : 'json', 
-	data : { searchuser :usernamefind  }
+	data : { searchuser :usernamefind ,
+			 order: order }
 }).done(res=>{
 	console.log(res);
 	res.data.forEach((users)=>{

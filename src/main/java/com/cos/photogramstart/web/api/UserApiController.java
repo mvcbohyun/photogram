@@ -80,8 +80,9 @@ public class UserApiController {
 	@GetMapping("/api/user/search")
 	public ResponseEntity<?> subscribe2List(@PageableDefault(size = 10, sort = "id" ) Pageable pageable,
 												@AuthenticationPrincipal PrincipalDtails principalDtails,
-												@RequestParam String searchuser){
-		List<UserFindDto> userFindDtos= userService.유저조회(principalDtails.getUser().getId(),searchuser,pageable.getPageNumber(),pageable.getPageSize());
+												@RequestParam String searchuser,
+												@RequestParam String order ){
+		List<UserFindDto> userFindDtos= userService.유저조회(principalDtails.getUser().getId(),searchuser,order,pageable.getPageNumber(),pageable.getPageSize());
 		
 		return new ResponseEntity<>(new CMRespDto<>(1,"구독자 정보 불러오기 성공",userFindDtos),HttpStatus.OK);
 	}

@@ -19,4 +19,5 @@ public class UserFindDto {
 	private String profileImageUrl; // 사진
 	private String bio;
 	private Integer gudok;
+	private BigInteger gudokcount;
 }

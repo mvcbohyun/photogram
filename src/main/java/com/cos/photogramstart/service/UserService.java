@@ -122,15 +122,23 @@ public class UserService {
 		
 	
 	}
-	public List<UserFindDto> 유저조회(Long id, String searchuser, int number, int size) {
+	public List<UserFindDto> 유저조회(Long id, String searchuser, String order, int number, int size) {
 		//쿼리 작성
+		
+		System.out.println("order : "+ order);;
 				StringBuffer sb = new StringBuffer();
 				sb.append("SELECT  a.id , a.username, a.profileImageUrl,ifnull(a.bio,CONCAT('안녕하세요 ', a.username , ' 입니다.')),if(ifnull(b.toUserId,'')='' ,0,1) AS gudok ");
+				sb.append(" ,(SELECT COUNT(c.touserid) FROM subscribe c WHERE c.touserid = a.id GROUP BY c.touserid) AS gudokcount ");
 				sb.append("FROM user a ");
 				sb.append("LEFT JOIN subscribe b ");
 				sb.append("ON a.id = b.toUserId AND b.fromUserId =? ");
 				sb.append("WHERE CONCAT(a.name,a.username ) LIKE CONCAT('%',?,'%') ");
 				sb.append("AND a.id !=? ");
+				if(order.equals("최신")) {
+				sb.append("ORDER BY id desc ");
+				}else if(order.equals("팔로우")) {
+				sb.append("ORDER BY gudokcount desc ");
+				}
 				sb.append("LIMIT ?,? ");
 				//쿼리 완성
 				Query query = em.createNativeQuery(sb.toString())
